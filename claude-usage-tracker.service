@@ -1,0 +1,15 @@
+[Unit]
+Description=Claude Usage Tracker Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 %h/.local/share/cut/claude_usage.py
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
