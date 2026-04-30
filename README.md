@@ -4,6 +4,8 @@ A KDE Plasma 6 panel widget that displays your Claude AI session (5-hour) and we
 
 ![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.0.png)
 
+You can put it on the desktop or the panel, and if you click on it, the pop-up menu expands to show a Refresh button to force a fresh API pull, and you can also see when the limits reset.
+
 ## Requirements
 
 - KDE Plasma 6
