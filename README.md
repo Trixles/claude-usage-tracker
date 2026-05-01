@@ -2,7 +2,7 @@
 
 A KDE Plasma 6 panel widget that displays your Claude AI session (5-hour) and weekly (7-day) usage limits as live progress bars.
 
-![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.0.png)
+![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.2.png)
 
 You can put it on the desktop or the panel, and if you click on it, the pop-up menu expands to show a Refresh button to force a fresh API pull, and you can also see when the limits reset.
 
@@ -10,14 +10,17 @@ You can put it on the desktop or the panel, and if you click on it, the pop-up m
 
 - KDE Plasma 6
 - Python 3.10+
+- Python `cryptography` package (`pip install cryptography`)
+- `qdbus6` (included with KDE Plasma 6)
+- KWallet (must be unlocked — happens automatically on KDE login)
 - systemd (standard on modern Linux)
-- Claude Desktop or Claude Code installed and signed in
+- **Claude Desktop** installed and signed in
 
 ## Install
 
 ```bash
-unzip CUT-v1.1.0.zip
-cd CUT-v1.1.0
+unzip CUT-v1.1.2.zip
+cd CUT-v1.1.2
 chmod +x install.sh
 ./install.sh
 ```
@@ -38,7 +41,8 @@ chmod +x uninstall.sh
 
 ## How It Works
 
-- A Python backend reads your OAuth token from `~/.claude/.credentials.json` and checks the Anthropic usage API every 5 minutes
+- A Python backend decrypts your OAuth token from Claude Desktop's encrypted token cache (`~/.config/Claude/config.json`) using your KWallet password, then polls the Anthropic usage API every 5 minutes
+- If Claude Desktop credentials aren't available, Claude Code (`~/.claude/.credentials.json`) is used as a fallback
 - Usage data is written to `~/.local/share/cut/usage.json`
 - The Plasma widget reads that file every 60 seconds and displays two progress bars
 - Color coding: green/blue (normal) → orange (>70%) → red (>90%)
@@ -57,8 +61,19 @@ chmod +x uninstall.sh
 
 **Widget shows "–%" or no data:**
 - Check the backend is running: `systemctl --user status claude-usage-tracker.service`
-- Check for credentials: `ls ~/.claude/.credentials.json`
 - Check logs: `journalctl --user -u claude-usage-tracker.service -f`
+
+**"No credentials found" error in logs:**
+- Make sure Claude Desktop is installed and you're signed in
+- Make sure KWallet is unlocked (it should be automatically after login)
+
+**KWallet not available after reboot:**
+- The backend retries KWallet for up to 30 seconds on startup — this is normal
+- If it still fails, try restarting the service: `systemctl --user restart claude-usage-tracker.service`
+
+**Missing `cryptography` package:**
+- Run: `pip install cryptography`
+- Or with pipx isolation issues: `pip install --user cryptography`
 
 **Widget not appearing in Add Widgets:**
 - Make sure you logged out and back in after install
@@ -69,11 +84,4 @@ chmod +x uninstall.sh
 
 ## Changelog
 
-### v1.1.0
-- Improved popup layout with balanced spacing between sections and around the Refresh button
-- Switched to Noto Serif font throughout the popup
-- Panel widget font size increased to 12px for better readability
-- Popup height tuned to accommodate the new font
-
-### v1.0.0
-- Initial release
+See [CHANGELOG.md](CHANGELOG.md) for full version history.

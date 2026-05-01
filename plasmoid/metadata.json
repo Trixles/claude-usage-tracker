@@ -7,7 +7,7 @@
         "Category": "Utilities",
         "Authors": [{"Email": "", "Name": "Trixles"}],
         "License": "MIT",
-        "Version": "1.1.0",
+        "Version": "1.1.2",
         "Website": "https://github.com/Trixles/claude-usage-tracker"
     },
     "X-Plasma-API-Minimum-Version": "6.0",

@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ── CUT — Claude Usage Tracker — Installer ────────────────────────────────────
 # Installs the Python backend, systemd service, Plasma 6 widget, and env config.
-# Requirements: KDE Plasma 6, Python 3.10+, systemd, Claude Desktop or Claude Code
+# Requirements: KDE Plasma 6, Python 3.10+, systemd, Claude Desktop
 # ──────────────────────────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -38,11 +38,43 @@ if ! command -v systemctl &>/dev/null; then
     exit 1
 fi
 
-if [ ! -f "$HOME/.claude/.credentials.json" ]; then
-    echo "⚠  ~/.claude/.credentials.json not found."
-    echo "   CUT needs Claude Desktop or Claude Code installed and signed in."
-    echo "   Continuing install — the backend will wait for credentials."
+if ! command -v qdbus6 &>/dev/null && ! command -v qdbus &>/dev/null; then
+    echo "⚠  qdbus6 not found. KWallet access may not work."
+    echo "   qdbus6 is normally included with KDE Plasma 6."
     echo ""
+fi
+
+# ── Check for Claude Desktop config ──────────────────────────────────────────
+DESKTOP_CONFIG="$HOME/.config/Claude/config.json"
+CODE_CREDENTIALS="$HOME/.claude/.credentials.json"
+
+if [ ! -f "$DESKTOP_CONFIG" ]; then
+    if [ ! -f "$CODE_CREDENTIALS" ]; then
+        echo "⚠  Neither Claude Desktop nor Claude Code credentials found."
+        echo "   CUT needs Claude Desktop installed and signed in to work."
+        echo "   Continuing install — the backend will wait for credentials."
+    else
+        echo "⚠  Claude Desktop config not found at $DESKTOP_CONFIG"
+        echo "   Claude Code credentials found as fallback."
+        echo "   For best results, install and sign in to Claude Desktop."
+    fi
+    echo ""
+else
+    echo "✓  Claude Desktop config found."
+fi
+
+# ── Install cryptography package ──────────────────────────────────────────────
+echo "📦 Installing Python dependencies..."
+if python3 -c "import cryptography" 2>/dev/null; then
+    echo "   (cryptography already installed, skipping)"
+else
+    echo "   Installing 'cryptography' package..."
+    if pip install --user cryptography 2>/dev/null || pip3 install --user cryptography 2>/dev/null; then
+        echo "   ✓ cryptography installed."
+    else
+        echo "   ⚠  Could not install cryptography automatically."
+        echo "   Please run: pip install cryptography"
+    fi
 fi
 
 # ── Stop existing service if running ──────────────────────────────────────────
