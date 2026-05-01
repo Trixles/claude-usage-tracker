@@ -14,7 +14,7 @@ You can put it on the desktop or the panel, and if you click on it, the pop-up m
 - `qdbus6` (included with KDE Plasma 6)
 - KWallet (must be unlocked — happens automatically on KDE login)
 - systemd (standard on modern Linux)
-- **Claude Desktop** installed and signed in
+- **Claude Desktop** OR **Claude Code** installed, and signed in (if you don't have this set to occur on startup, you can use the Refresh button in the pop-up menu to force it to check for auth after you sign into Claude Desktop or CC)
 
 ## Install
 
