@@ -19,7 +19,7 @@ You can put it on the desktop or the panel, and if you click on it, the pop-up m
 ## Install
 
 ```bash
-unzip CUT-v1.1.2.zip
+unzip CUT-v1.1.2.tar.gz
 cd CUT-v1.1.2
 chmod +x install.sh
 ./install.sh
