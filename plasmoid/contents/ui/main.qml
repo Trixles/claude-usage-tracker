@@ -7,7 +7,9 @@ import org.kde.kirigami as Kirigami
 PlasmoidItem {
     id: root
 
-    preferredRepresentation: compactRepresentation
+    // On the desktop (Floating = 0), show the full view directly.
+    // On a panel, use the compact bars with click-to-expand popup.
+    preferredRepresentation: Plasmoid.location === 0 ? fullRepresentation : compactRepresentation
 
     // ── State ─────────────────────────────────────────────────────────────────
     property real   sessionPct:   0.0
@@ -120,8 +122,10 @@ PlasmoidItem {
                 Text {
                     text: root.sessionLabel
                     color: root.dimColor
-                    font.pixelSize: 12; font.family: "Noto Serif"
+                    font.pixelSize: 12; font.bold: true; font.family: "Noto Serif"
                     Layout.alignment: Qt.AlignVCenter
+                    Layout.preferredWidth: 26
+                    horizontalAlignment: Text.AlignHCenter
                 }
             }
 
@@ -147,8 +151,10 @@ PlasmoidItem {
                 Text {
                     text: root.weeklyLabel
                     color: root.dimColor
-                    font.pixelSize: 12; font.family: "Noto Serif"
+                    font.pixelSize: 12; font.bold: true; font.family: "Noto Serif"
                     Layout.alignment: Qt.AlignVCenter
+                    Layout.preferredWidth: 26
+                    horizontalAlignment: Text.AlignHCenter
                 }
             }
         }
@@ -161,10 +167,12 @@ PlasmoidItem {
 
     // ── Full / popup view ─────────────────────────────────────────────────────
     fullRepresentation: Item {
-        Layout.preferredWidth: 220
-        Layout.preferredHeight: 230
-        Layout.maximumWidth: 220
-        Layout.maximumHeight: 230
+        // Desktop floating: size to content naturally.
+        // Panel popup: fixed 220×230.
+        Layout.preferredWidth:  Plasmoid.location === 0 ? 220 : 220
+        Layout.preferredHeight: Plasmoid.location === 0 ? 230 : 230
+        Layout.maximumWidth:    Plasmoid.location === 0 ? 9999 : 220
+        Layout.maximumHeight:   Plasmoid.location === 0 ? 9999 : 230
 
         ColumnLayout {
             anchors { fill: parent; margins: 8 }

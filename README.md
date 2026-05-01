@@ -1,10 +1,12 @@
 # Claude Usage Tracker
 
-A KDE Plasma 6 panel widget that displays your Claude AI session (5-hour) and weekly (7-day) usage limits as live progress bars.
+A KDE Plasma 6 widget that displays your Claude AI session (5-hour) and weekly (7-day) usage limits as live progress bars.
 
-![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.2.png)
+![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.3.png)
 
-You can put it on the desktop or the panel, and if you click on it, the pop-up menu expands to show a Refresh button to force a fresh API pull, and you can also see when the limits reset.
+Works on both the panel and the desktop:
+- **Panel:** Compact progress bars; click to expand a popup showing reset countdowns and a Refresh button
+- **Desktop:** Always shows the full view (reset countdowns + Refresh button) directly — no compact bars, no popup
 
 ## Requirements
 
@@ -19,8 +21,8 @@ You can put it on the desktop or the panel, and if you click on it, the pop-up m
 ## Install
 
 ```bash
-unzip CUT-v1.1.2.zip
-cd CUT-v1.1.2
+tar -xzf CUT-v1.1.3.tar.gz
+cd CUT-v1.1.3
 chmod +x install.sh
 ./install.sh
 ```
@@ -30,7 +32,7 @@ chmod +x install.sh
 After logging back in:
 1. Right-click your panel → **Add Widgets**
 2. Search for "Claude Usage Tracker"
-3. Drag it onto your panel
+3. Drag it onto your panel or desktop
 
 ## Uninstall
 
@@ -77,10 +79,10 @@ chmod +x uninstall.sh
 
 **Widget not appearing in Add Widgets:**
 - Make sure you logged out and back in after install
-- Try: `killall plasmashell; plasmashell &`
+- Try: `kquitapp6 plasmashell; kstart plasmashell`
 
 **After updating, widget looks the same:**
-- Remove the widget from your panel and re-add it to force Plasma to reload the cached popup size
+- Remove the widget from your panel or desktop and re-add it to force Plasma to reload the cached size
 
 ## Changelog
 
