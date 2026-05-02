@@ -2,7 +2,7 @@
 
 A KDE Plasma 6 widget that displays your Claude AI session (5-hour) and weekly (7-day) usage limits as live progress bars.
 
-![Claude Usage Tracker](screenshots/claude-usage-tracker-v1.1.3.png)
+![Claude Usage Tracker](screenshots/cut-screenshot.png)
 
 Works on both the panel and the desktop:
 - **Panel:** Compact progress bars; click to expand a popup showing reset countdowns and a Refresh button
@@ -55,7 +55,7 @@ chmod +x uninstall.sh
 |------|------|
 | Backend script | `~/.local/share/cut/claude_usage.py` |
 | Usage data | `~/.local/share/cut/usage.json` |
-| systemd service | `~/.config/systemd/user/claude-usage-tracker.service` |
+| systemd service | `~/.config/systemd/user/claude-usage-tracker.service` |\
 | Plasma widget | `~/.local/share/plasma/plasmoids/com.github.trixles.claudeusagetracker/` |
 | Env config | `~/.config/environment.d/cut.conf` |
 
