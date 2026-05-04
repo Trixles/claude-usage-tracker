@@ -1,0 +1,17 @@
+# Only CUT-v1.2/ is tracked. All other versions are archived as GitHub releases.
+Old Versions/
+CUT-v1.0.0/
+CUT-v1.1.0/
+CUT-v1.1.1/
+CUT-v1.1.2/
+CUT-v1.1.3/
+
+# Release tarballs — uploaded to GitHub releases, not tracked in repo
+*.tar.gz
+*.zip
+
+# Runtime files that should never be committed
+CUT-v1.2/plasmoid/contents/ui/*.qmlc
+CUT-v1.2/plasmoid/contents/ui/+mediacenter/
+*.pyc
+__pycache__/

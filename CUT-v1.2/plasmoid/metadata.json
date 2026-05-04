@@ -1,0 +1,15 @@
+{
+    "KPlugin": {
+        "Id": "com.github.trixles.claudeusagetracker",
+        "Name": "Claude Usage Tracker",
+        "Description": "Displays your Claude AI session and weekly usage limits as progress bars.",
+        "Icon": "utilities-system-monitor",
+        "Category": "Utilities",
+        "Authors": [{"Email": "", "Name": "Trixles"}],
+        "License": "MIT",
+        "Version": "1.2.0",
+        "Website": "https://github.com/Trixles/claude-usage-tracker"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "KPackageStructure": "Plasma/Applet"
+}
