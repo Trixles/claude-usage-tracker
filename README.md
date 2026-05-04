@@ -2,6 +2,8 @@
 
 A KDE Plasma 6 widget that displays your Claude AI session (5-hour) and weekly (7-day) usage limits as live progress bars.
 
+![Claude Usage Tracker](screenshots/claude-usage-tracker.png)
+
 Works on both the panel and the desktop:
 - **Panel:** Compact progress bars with labeled percentages; click to expand a popup showing reset countdowns and a Refresh button
 - **Desktop:** Always shows the full view (reset countdowns + Refresh button) directly — no compact bars, no popup
